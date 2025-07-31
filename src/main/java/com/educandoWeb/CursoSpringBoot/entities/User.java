@@ -1,9 +1,10 @@
 package com.educandoWeb.CursoSpringBoot.entities;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -16,8 +17,12 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name,email,password,phone;
+
+    //relacionamento de 1 para outros, 1 cliete para muitos pedidos
+    @OneToMany(mappedBy = "client")//atributo do outro lado da associação, no caso o "muitos"
+    //no outro lado da associação, ta mapeado pelo nome da variável client
+    private List<Order> orders = new ArrayList<>();
 
     public User() {};
 
@@ -67,6 +72,10 @@ public class User implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
