@@ -1,5 +1,6 @@
 package com.educandoWeb.CursoSpringBoot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,9 +23,10 @@ public class User implements Serializable {
     //relacionamento de 1 para outros, 1 cliete para muitos pedidos
     @OneToMany(mappedBy = "client")//atributo do outro lado da associação, no caso o "muitos"
     //no outro lado da associação, ta mapeado pelo nome da variável client
+    @JsonIgnore//nao deixa o Json chamar as orders na requisição get, não ficar repetindo(tem true no properties)
     private List<Order> orders = new ArrayList<>();
 
-    public User() {};
+    public User() {}
 
     public User(Long id, String name, String email, String password, String phone) {
         this.id = id;
