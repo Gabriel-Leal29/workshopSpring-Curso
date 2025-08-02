@@ -3,6 +3,8 @@ package com.educandoWeb.CursoSpringBoot.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,11 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    //FAZNEDO A ASSOCIAÇÃO (1 CATEGORIA PODE TER MTS PRODUTOS)
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category() {};
 
@@ -36,6 +43,10 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
     }
 
     @Override

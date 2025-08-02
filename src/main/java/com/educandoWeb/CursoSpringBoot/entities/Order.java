@@ -2,8 +2,6 @@ package com.educandoWeb.CursoSpringBoot.entities;
 
 import com.educandoWeb.CursoSpringBoot.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
