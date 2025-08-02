@@ -21,10 +21,15 @@ public class Product implements Serializable {
     private String imgUrl;
 
     //usando o SET p/NÃO ter um produto com mais de uma ocorrência de mesma categoria
-    @Transient
+    //FAZENDO A ASSOCIAÇÃO DE M PARA MTS(MTS PRODUTO PODE TER MTS CATEGORIA)
+    @ManyToMany
+    @JoinTable(name = "tb_product_category", joinColumns =
+    @JoinColumn(name = "product_id"),
+            inverseJoinColumns=@JoinColumn(name="category_id"))
+    //nome da tabela de associação,
+    // nome das chavesEstrangeiras que vão associar as tabelas categorias com a de produtos
+    //primeiro o nome da key dessa classe, depois da classe inversa, no caso a da categoria
     private Set<Category> categories = new HashSet<>();
-
-    //FAZENDO A ASSOCIAÇÃO DE MUITOS PARA 1(MTS PRODUTOS PODEM TER 1 CATEGORIA)
 
 
 
