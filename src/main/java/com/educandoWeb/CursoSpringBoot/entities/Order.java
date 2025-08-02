@@ -1,5 +1,6 @@
 package com.educandoWeb.CursoSpringBoot.entities;
 
+import com.educandoWeb.CursoSpringBoot.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
@@ -28,11 +29,14 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")//nome da chave estrangeira
     private User client;//nome da variável q esta deste lado da aplicação, ta sendo buscado no User.java
 
+    private Integer status;
+
     public Order() {}
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, OrderStatus status,User client) {
         this.id = id;
         this.moment = moment;
+        setStatus(status);
         this.client = client;
     }
 
@@ -58,6 +62,16 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrderStatus getStatus() {
+        return OrderStatus.valueOf(status);
+    }
+
+    public void setStatus(OrderStatus status) {
+        if(status != null){
+            this.status = status.getCode();
+        }
     }
 
     @Override
