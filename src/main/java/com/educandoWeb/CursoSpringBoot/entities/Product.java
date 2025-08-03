@@ -1,5 +1,6 @@
 package com.educandoWeb.CursoSpringBoot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -31,7 +32,8 @@ public class Product implements Serializable {
     //primeiro o nome da key dessa classe, depois da classe inversa, no caso a da categoria
     private Set<Category> categories = new HashSet<>();
 
-
+    @OneToMany(mappedBy="id.product")//1 para mts
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {};
 
@@ -86,6 +88,15 @@ public class Product implements Serializable {
     public Set<Category> getCategories() {
         return categories;
     }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for(OrderItem x : items) {
+            set.add(x.getOrder());
+        }
+        return set;
+    };
 
     @Override
     public boolean equals(Object o) {
