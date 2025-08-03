@@ -2,11 +2,14 @@ package com.educandoWeb.CursoSpringBoot.entities;
 
 import com.educandoWeb.CursoSpringBoot.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="tb_order")
@@ -28,6 +31,9 @@ public class Order implements Serializable {
     private User client;//nome da variável q esta deste lado da aplicação, ta sendo buscado no User.java
 
     private Integer status;
+
+    @OneToMany(mappedBy = "id.order")//um para mts
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {}
 
@@ -64,6 +70,10 @@ public class Order implements Serializable {
 
     public OrderStatus getStatus() {
         return OrderStatus.valueOf(status);
+    }
+
+    public Set<OrderItem> getItems() {
+        return items;
     }
 
     public void setStatus(OrderStatus status) {

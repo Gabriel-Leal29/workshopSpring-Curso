@@ -3,10 +3,8 @@ package com.educandoWeb.CursoSpringBoot.entities.pk;
 import com.educandoWeb.CursoSpringBoot.entities.Product;
 import com.educandoWeb.CursoSpringBoot.entities.Order;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.Objects;
