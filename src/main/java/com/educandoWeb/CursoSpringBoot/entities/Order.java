@@ -4,6 +4,7 @@ import com.educandoWeb.CursoSpringBoot.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -34,6 +35,11 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "id.order")//um para mts
     private Set<OrderItem> items = new HashSet<>();
+
+    //associação de 1 pra 1, e a entidade do outro lado(classe payment, tem o nome order
+    //e o cascade = CascadeType.ALL é obrigatorio colocar para terem o msm id
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order() {}
 
@@ -80,6 +86,14 @@ public class Order implements Serializable {
         if(status != null){
             this.status = status.getCode();
         }
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
     @Override
